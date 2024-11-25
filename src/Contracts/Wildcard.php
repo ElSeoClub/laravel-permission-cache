@@ -1,14 +1,13 @@
 <?php
 
-namespace Spatie\Permission\Contracts;
+namespace Elseoclub\Permission\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 
-interface Wildcard
-{
-    public function __construct(Model $record);
+interface Wildcard {
+    public function __construct( Model $record );
 
     public function getIndex(): array;
 
-    public function implies(string $permission, string $guardName, array $index): bool;
+    public function implies( string $permission, string $guardName, array $index ): bool;
 }

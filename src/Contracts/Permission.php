@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Permission\Contracts;
+namespace Elseoclub\Permission\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $name
  * @property string|null $guard_name
  *
- * @mixin \Spatie\Permission\Models\Permission
+ * @mixin \Elseoclub\Permission\Models\Permission
  *
- * @phpstan-require-extends \Spatie\Permission\Models\Permission
+ * @phpstan-require-extends \Elseoclub\Permission\Models\Permission
  */
-interface Permission
-{
+interface Permission {
     /**
      * A permission can be applied to roles.
      */
@@ -24,20 +23,20 @@ interface Permission
      * Find a permission by its name.
      *
      *
-     * @throws \Spatie\Permission\Exceptions\PermissionDoesNotExist
+     * @throws \Elseoclub\Permission\Exceptions\PermissionDoesNotExist
      */
-    public static function findByName(string $name, ?string $guardName): self;
+    public static function findByName( string $name, ?string $guardName ): self;
 
     /**
      * Find a permission by its id.
      *
      *
-     * @throws \Spatie\Permission\Exceptions\PermissionDoesNotExist
+     * @throws \Elseoclub\Permission\Exceptions\PermissionDoesNotExist
      */
-    public static function findById(int|string $id, ?string $guardName): self;
+    public static function findById( int|string $id, ?string $guardName ): self;
 
     /**
      * Find or Create a permission by its name and guard name.
      */
-    public static function findOrCreate(string $name, ?string $guardName): self;
+    public static function findOrCreate( string $name, ?string $guardName ): self;
 }

@@ -1,13 +1,11 @@
 <?php
 
-namespace Spatie\Permission\Exceptions;
+namespace Elseoclub\Permission\Exceptions;
 
 use InvalidArgumentException;
 
-class WildcardPermissionNotImplementsContract extends InvalidArgumentException
-{
-    public static function create()
-    {
-        return new static('Wildcard permission class must implements Spatie\Permission\Contracts\Wildcard contract');
+class WildcardPermissionNotImplementsContract extends InvalidArgumentException {
+    public static function create() {
+        return new static( 'Wildcard permission class must implements Elseoclub\Permission\Contracts\Wildcard contract' );
     }
 }

@@ -1,10 +1,9 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
-use Spatie\Permission\Traits\HasRoles;
+use Elseoclub\Permission\Traits\HasRoles;
 
-class User extends UserWithoutHasRoles
-{
+class User extends UserWithoutHasRoles {
     use HasRoles;
 }

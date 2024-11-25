@@ -1,12 +1,11 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SoftDeletingUser extends User
-{
-    use SoftDeletes;
+class SoftDeletingUser extends User {
+	use SoftDeletes;
 
-    protected $guard_name = 'web';
+	protected $guard_name = 'web';
 }

@@ -1,6 +1,6 @@
 {
-    "name": "spatie/laravel-permission",
-    "description": "Permission handling for Laravel 8.0 and up",
+    "name": "elseoclub/laravel-permission-cache",
+    "description": "Cache Permission handling for Laravel 8.0 and up",
     "license": "MIT",
     "keywords": [
         "spatie",
@@ -14,13 +14,13 @@
     ],
     "authors": [
         {
-            "name": "Freek Van der Herten",
-            "email": "freek@spatie.be",
-            "homepage": "https://spatie.be",
+            "name": "Ricardo Ballesteros Huazano",
+            "email": "suvager@gmail.com",
+            "homepage": "https://grupobahez.com",
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/spatie/laravel-permission",
+    "homepage": "https://github.com/ElSeoClub/laravel-permission-cache",
     "require": {
         "php": "^8.0",
         "illuminate/auth": "^8.12|^9.0|^10.0|^11.0",
@@ -38,7 +38,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Spatie\\Permission\\": "src"
+            "Elseoclub\\Permission\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -46,7 +46,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Permission\\Tests\\": "tests"
+            "Elseoclub\\Permission\\Tests\\": "tests"
         }
     },
     "config": {
@@ -59,7 +59,7 @@
         },
         "laravel": {
             "providers": [
-                "Spatie\\Permission\\PermissionServiceProvider"
+                "Elseoclub\\Permission\\PermissionServiceProvider"
             ]
         }
     },

@@ -10,10 +10,10 @@ return [
          * is often just the "Permission" model but you may use whatever you like.
          *
          * The model you want to use as a Permission model needs to implement the
-         * `Spatie\Permission\Contracts\Permission` contract.
+         * `Elseoclub\Permission\Contracts\Permission` contract.
          */
 
-        'permission' => Spatie\Permission\Models\Permission::class,
+        'permission' => Elseoclub\Permission\Models\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -21,10 +21,10 @@ return [
          * is often just the "Role" model but you may use whatever you like.
          *
          * The model you want to use as a Role model needs to implement the
-         * `Spatie\Permission\Contracts\Role` contract.
+         * `Elseoclub\Permission\Contracts\Role` contract.
          */
 
-        'role' => Spatie\Permission\Models\Role::class,
+        'role' => Elseoclub\Permission\Models\Role::class,
 
     ],
 
@@ -75,7 +75,7 @@ return [
         /*
          * Change this if you want to name the related pivots other than defaults
          */
-        'role_pivot_key' => null, //default 'role_id',
+        'role_pivot_key'       => null, //default 'role_id',
         'permission_pivot_key' => null, //default 'permission_id',
 
         /*
@@ -108,7 +108,7 @@ return [
      * this will refresh permissions on every TickTerminated, TaskTerminated and RequestTerminated
      * NOTE: This should not be needed in most cases, but an Octane/Vapor combination benefited from it.
      */
-    'register_octane_reset_listener' => false,
+    'register_octane_reset_listener'   => false,
 
     /*
      * Teams Feature.
@@ -156,7 +156,7 @@ return [
      * The class to use for interpreting wildcard permissions.
      * If you need to modify delimiters, override the class and specify its name here.
      */
-    // 'permission.wildcard_permission' => Spatie\Permission\WildcardPermission::class,
+    // 'permission.wildcard_permission' => Elseoclub\Permission\WildcardPermission::class,
 
     /* Cache-specific settings */
 
@@ -167,7 +167,7 @@ return [
          * When permissions or roles are updated the cache is flushed automatically.
          */
 
-        'expiration_time' => \DateInterval::createFromDateString('24 hours'),
+        'expiration_time' => \DateInterval::createFromDateString( '24 hours' ),
 
         /*
          * The cache key used to store all permissions.

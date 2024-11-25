@@ -1,9 +1,8 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
-class RuntimeRole extends \Spatie\Permission\Models\Role
-{
+class RuntimeRole extends \Elseoclub\Permission\Models\Role {
     protected $visible = [
         'id',
         'name',

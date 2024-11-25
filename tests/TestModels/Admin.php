@@ -1,10 +1,9 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
-class Admin extends User
-{
+class Admin extends User {
     protected $table = 'admins';
 
-    protected $touches = ['roles', 'permissions'];
+    protected $touches = [ 'roles', 'permissions' ];
 }

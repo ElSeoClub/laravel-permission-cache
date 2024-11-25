@@ -1,13 +1,11 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
-class Manager extends User
-{
+class Manager extends User {
     // this function is added here to support the unit tests verifying it works
     // When present, it takes precedence over the $guard_name property.
-    public function guardName()
-    {
+    public function guardName() {
         return 'jwt';
     }
 

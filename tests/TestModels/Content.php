@@ -1,12 +1,11 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Content extends Model
-{
-    protected $guarded = [];
+class Content extends Model {
+	protected $guarded = [];
 
-    protected $table = 'content';
+	protected $table = 'content';
 }

@@ -1,13 +1,11 @@
 <?php
 
-namespace Spatie\Permission\Exceptions;
+namespace Elseoclub\Permission\Exceptions;
 
 use InvalidArgumentException;
 
-class PermissionAlreadyExists extends InvalidArgumentException
-{
-    public static function create(string $permissionName, string $guardName)
-    {
-        return new static("A `{$permissionName}` permission already exists for guard `{$guardName}`.");
+class PermissionAlreadyExists extends InvalidArgumentException {
+    public static function create( string $permissionName, string $guardName ) {
+        return new static( "A `{$permissionName}` permission already exists for guard `{$guardName}`." );
     }
 }

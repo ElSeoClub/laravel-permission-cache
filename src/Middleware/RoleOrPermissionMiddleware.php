@@ -1,56 +1,54 @@
 <?php
 
-namespace Spatie\Permission\Middleware;
+namespace Elseoclub\Permission\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Exceptions\UnauthorizedException;
-use Spatie\Permission\Guard;
+use Elseoclub\Permission\Exceptions\UnauthorizedException;
+use Elseoclub\Permission\Guard;
 
-class RoleOrPermissionMiddleware
-{
-    public function handle($request, Closure $next, $roleOrPermission, $guard = null)
-    {
-        $authGuard = Auth::guard($guard);
+class RoleOrPermissionMiddleware {
+    public function handle( $request, Closure $next, $roleOrPermission, $guard = null ) {
+        $authGuard = Auth::guard( $guard );
 
         $user = $authGuard->user();
 
         // For machine-to-machine Passport clients
-        if (! $user && $request->bearerToken() && config('permission.use_passport_client_credentials')) {
-            $user = Guard::getPassportClient($guard);
+        if ( ! $user && $request->bearerToken() && config( 'permission.use_passport_client_credentials' ) ) {
+            $user = Guard::getPassportClient( $guard );
         }
 
-        if (! $user) {
+        if ( ! $user ) {
             throw UnauthorizedException::notLoggedIn();
         }
 
-        if (! method_exists($user, 'hasAnyRole') || ! method_exists($user, 'hasAnyPermission')) {
-            throw UnauthorizedException::missingTraitHasRoles($user);
+        if ( ! method_exists( $user, 'hasAnyRole' ) || ! method_exists( $user, 'hasAnyPermission' ) ) {
+            throw UnauthorizedException::missingTraitHasRoles( $user );
         }
 
-        $rolesOrPermissions = is_array($roleOrPermission)
+        $rolesOrPermissions = is_array( $roleOrPermission )
             ? $roleOrPermission
-            : explode('|', $roleOrPermission);
+            : explode( '|', $roleOrPermission );
 
-        if (! $user->canAny($rolesOrPermissions) && ! $user->hasAnyRole($rolesOrPermissions)) {
-            throw UnauthorizedException::forRolesOrPermissions($rolesOrPermissions);
+        if ( ! $user->canAny( $rolesOrPermissions ) && ! $user->hasAnyRole( $rolesOrPermissions ) ) {
+            throw UnauthorizedException::forRolesOrPermissions( $rolesOrPermissions );
         }
 
-        return $next($request);
+        return $next( $request );
     }
 
     /**
      * Specify the role or permission and guard for the middleware.
      *
-     * @param  array|string  $roleOrPermission
-     * @param  string|null  $guard
+     * @param array|string $roleOrPermission
+     * @param string|null $guard
+     *
      * @return string
      */
-    public static function using($roleOrPermission, $guard = null)
-    {
-        $roleOrPermissionString = is_string($roleOrPermission) ? $roleOrPermission : implode('|', $roleOrPermission);
-        $args = is_null($guard) ? $roleOrPermissionString : "$roleOrPermissionString,$guard";
+    public static function using( $roleOrPermission, $guard = null ) {
+        $roleOrPermissionString = is_string( $roleOrPermission ) ? $roleOrPermission : implode( '|', $roleOrPermission );
+        $args                   = is_null( $guard ) ? $roleOrPermissionString : "$roleOrPermissionString,$guard";
 
-        return static::class.':'.$args;
+        return static::class . ':' . $args;
     }
 }

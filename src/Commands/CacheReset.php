@@ -1,25 +1,23 @@
 <?php
 
-namespace Spatie\Permission\Commands;
+namespace Elseoclub\Permission\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\Permission\PermissionRegistrar;
+use Elseoclub\Permission\PermissionRegistrar;
 
-class CacheReset extends Command
-{
+class CacheReset extends Command {
     protected $signature = 'permission:cache-reset';
 
     protected $description = 'Reset the permission cache';
 
-    public function handle()
-    {
-        $permissionRegistrar = app(PermissionRegistrar::class);
-        $cacheExists = $permissionRegistrar->getCacheRepository()->has($permissionRegistrar->cacheKey);
+    public function handle() {
+        $permissionRegistrar = app( PermissionRegistrar::class );
+        $cacheExists         = $permissionRegistrar->getCacheRepository()->has( $permissionRegistrar->cacheKey );
 
-        if ($permissionRegistrar->forgetCachedPermissions()) {
-            $this->info('Permission cache flushed.');
-        } elseif ($cacheExists) {
-            $this->error('Unable to flush cache.');
+        if ( $permissionRegistrar->forgetCachedPermissions() ) {
+            $this->info( 'Permission cache flushed.' );
+        } elseif ( $cacheExists ) {
+            $this->error( 'Unable to flush cache.' );
         }
     }
 }

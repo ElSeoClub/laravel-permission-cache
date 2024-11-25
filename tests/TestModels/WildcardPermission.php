@@ -1,11 +1,10 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
-use Spatie\Permission\WildcardPermission as BaseWildcardPermission;
+use Elseoclub\Permission\WildcardPermission as BaseWildcardPermission;
 
-class WildcardPermission extends BaseWildcardPermission
-{
+class WildcardPermission extends BaseWildcardPermission {
     /** @var string */
     public const WILDCARD_TOKEN = '@';
 

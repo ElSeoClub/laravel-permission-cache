@@ -7,36 +7,43 @@ weight: 2
 
 You may discover that it is best to flush this package's cache **BEFORE seeding, to avoid cache conflict errors**.
 
-And if you use the `WithoutModelEvents` trait in your seeders, flush it **AFTER creating any roles/permissions as well, before assigning or granting them.**.
+And if you use the `WithoutModelEvents` trait in your seeders, flush it **AFTER creating any roles/permissions as well,
+before assigning or granting them.**.
 
 ```php
 // reset cached roles and permissions
-app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+app()[\Elseoclub\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 ```
 
-You can optionally flush the cache before seeding by using the `SetUp()` method of your test suite (see the Testing page in the docs).
+You can optionally flush the cache before seeding by using the `SetUp()` method of your test suite (see the Testing page
+in the docs).
 
 Or it can be done directly in a seeder class, as shown below.
 
 ## Database Cache Store
 
-TIP: If you have `CACHE_STORE=database` set in your `.env`, remember that [you must install Laravel's cache tables via a migration before performing any cache operations](https://laravel.com/docs/cache#prerequisites-database). If you fail to install those migrations, you'll run into errors like `Call to a member function perform() on null` when the cache store attempts to purge or update the cache. This package does strategic cache resets in various places, so may trigger that error if your app's cache dependencies aren't set up.
+TIP: If you have `CACHE_STORE=database` set in your `.env`, remember
+that [you must install Laravel's cache tables via a migration before performing any cache operations](https://laravel.com/docs/cache#prerequisites-database).
+If you fail to install those migrations, you'll run into errors like `Call to a member function perform() on null` when
+the cache store attempts to purge or update the cache. This package does strategic cache resets in various places, so
+may trigger that error if your app's cache dependencies aren't set up.
 
 ## Roles/Permissions Seeder
 
-Here is a sample seeder, which first clears the cache, creates permissions and then assigns permissions to roles (the order of these steps is intentional):
+Here is a sample seeder, which first clears the cache, creates permissions and then assigns permissions to roles (the
+order of these steps is intentional):
 
 ```php
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use Elseoclub\Permission\Models\Role;
+use Elseoclub\Permission\Models\Permission;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
     public function run(): void
     {
         // Reset cached roles and permissions
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[\Elseoclub\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
         Permission::create(['name' => 'edit articles']);
@@ -45,7 +52,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'unpublish articles']);
 
         // update cache to know about the newly created permissions (required if using WithoutModelEvents in seeders)
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[\Elseoclub\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
 
         // create roles and assign created permissions
@@ -99,10 +106,11 @@ User::factory()
     });
 ```
 
-
 ## Speeding up seeding for large data sets
 
-When seeding large quantities of roles or permissions you may consider using Eloquent's `insert` command instead of `create`, as this bypasses all the internal checks that this package does when calling `create` (including extra queries to verify existence, test guards, etc).
+When seeding large quantities of roles or permissions you may consider using Eloquent's `insert` command instead of
+`create`, as this bypasses all the internal checks that this package does when calling `create` (including extra queries
+to verify existence, test guards, etc).
 
 ```php
     $arrayOfPermissionNames = ['writer', 'editor'];
@@ -113,7 +121,9 @@ When seeding large quantities of roles or permissions you may consider using Elo
     Permission::insert($permissions->toArray());
 ```
 
-Alternatively you could use `DB::insert`, as long as you also provide all the required data fields. One example of this is shown below ... but note that this example hard-codes the table names and field names, thus does not respect any customizations you may have in your permissions config file.
+Alternatively you could use `DB::insert`, as long as you also provide all the required data fields. One example of this
+is shown below ... but note that this example hard-codes the table names and field names, thus does not respect any
+customizations you may have in your permissions config file.
 
 ```php
 $permissionsByRole = [
@@ -147,4 +157,5 @@ foreach ($permissionIdsByRole as $role => $permissionIds) {
 // and also add the command to flush the cache again now after doing all these inserts
 ```
 
-**CAUTION**: ANY TIME YOU DIRECTLY RUN DB QUERIES you are bypassing cache-control features. So you will need to manually flush the package cache AFTER running direct DB queries, even in a seeder.
+**CAUTION**: ANY TIME YOU DIRECTLY RUN DB QUERIES you are bypassing cache-control features. So you will need to manually
+flush the package cache AFTER running direct DB queries, even in a seeder.

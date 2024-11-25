@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Permission\Tests\TestModels;
+namespace Elseoclub\Permission\Tests\TestModels;
 
 /**
  * Enum example
@@ -19,40 +19,38 @@ namespace Spatie\Permission\Tests\TestModels;
  * TestRolePermissionsEnum::USERMANAGER->value = 'User Manager'  <-- This is the role-name checked by this package
  * TestRolePermissionsEnum::USERMANAGER->label() = 'Manage Users'
  */
-enum TestRolePermissionsEnum: string
-{
-    // case NAME = 'value';
-    // case NAMEINAPP = 'name-in-database';
+enum TestRolePermissionsEnum: string {
+	// case NAME = 'value';
+	// case NAMEINAPP = 'name-in-database';
 
-    case WRITER = 'writer';
-    case EDITOR = 'editor';
-    case USERMANAGER = 'user-manager';
-    case ADMIN = 'administrator';
-    case CASTED_ENUM_1 = 'casted_enum-1';
-    case CASTED_ENUM_2 = 'casted_enum-2';
+	case WRITER = 'writer';
+	case EDITOR = 'editor';
+	case USERMANAGER = 'user-manager';
+	case ADMIN = 'administrator';
+	case CASTED_ENUM_1 = 'casted_enum-1';
+	case CASTED_ENUM_2 = 'casted_enum-2';
 
-    case VIEWARTICLES = 'view articles';
-    case EDITARTICLES = 'edit articles';
+	case VIEWARTICLES = 'view articles';
+	case EDITARTICLES = 'edit articles';
 
-    case WildcardArticlesCreator = 'articles.edit,view,create';
-    case WildcardNewsEverything = 'news.*';
-    case WildcardPostsEverything = 'posts.*';
+	case WildcardArticlesCreator = 'articles.edit,view,create';
+	case WildcardNewsEverything = 'news.*';
+	case WildcardPostsEverything = 'posts.*';
 
-    case WildcardPostsCreate = 'posts.create';
-    case WildcardArticlesView = 'articles.view';
-    case WildcardProjectsView = 'projects.view';
+	case WildcardPostsCreate = 'posts.create';
+	case WildcardArticlesView = 'articles.view';
+	case WildcardProjectsView = 'projects.view';
 
-    // extra helper to allow for greater customization of displayed values, without disclosing the name/value data directly
-    public function label(): string
-    {
-        return match ($this) {
-            self::WRITER => 'Writers',
-            self::EDITOR => 'Editors',
-            self::USERMANAGER => 'User Managers',
-            self::ADMIN => 'Admins',
+	// extra helper to allow for greater customization of displayed values, without disclosing the name/value data directly
+	public function label(): string {
+		return match ( $this ) {
+			self::WRITER => 'Writers',
+			self::EDITOR => 'Editors',
+			self::USERMANAGER => 'User Managers',
+			self::ADMIN => 'Admins',
 
-            self::VIEWARTICLES => 'View Articles',
-            self::EDITARTICLES => 'Edit Articles',
-        };
-    }
+			self::VIEWARTICLES => 'View Articles',
+			self::EDITARTICLES => 'Edit Articles',
+		};
+	}
 }

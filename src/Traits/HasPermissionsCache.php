@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Traits\Spatie;
+namespace Elseoclub\Permission\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\Contracts\Role;
-use Spatie\Permission\Contracts\Wildcard;
-use Spatie\Permission\Exceptions\GuardDoesNotMatch;
-use Spatie\Permission\Exceptions\PermissionDoesNotExist;
-use Spatie\Permission\Exceptions\WildcardPermissionInvalidArgument;
-use Spatie\Permission\Exceptions\WildcardPermissionNotImplementsContract;
-use Spatie\Permission\Guard;
-use Spatie\Permission\PermissionRegistrar;
-use Spatie\Permission\WildcardPermission;
+use Elseoclub\Permission\Contracts\Permission;
+use Elseoclub\Permission\Contracts\Role;
+use Elseoclub\Permission\Contracts\Wildcard;
+use Elseoclub\Permission\Exceptions\GuardDoesNotMatch;
+use Elseoclub\Permission\Exceptions\PermissionDoesNotExist;
+use Elseoclub\Permission\Exceptions\WildcardPermissionInvalidArgument;
+use Elseoclub\Permission\Exceptions\WildcardPermissionNotImplementsContract;
+use Elseoclub\Permission\Guard;
+use Elseoclub\Permission\PermissionRegistrar;
+use Elseoclub\Permission\WildcardPermission;
 
 trait HasPermissionsCache {
     private ?string $permissionClass = null;

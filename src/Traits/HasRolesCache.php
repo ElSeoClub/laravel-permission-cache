@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Traits\Spatie;
+namespace Elseoclub\Permission\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\Contracts\Role;
-use Spatie\Permission\PermissionRegistrar;
+use Elseoclub\Permission\Contracts\Permission;
+use Elseoclub\Permission\Contracts\Role;
+use Elseoclub\Permission\PermissionRegistrar;
 
 
 trait HasRolesCache {

@@ -1,14 +1,13 @@
 <?php
 
-namespace Spatie\Permission;
+namespace Elseoclub\Permission;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Spatie\Permission\Contracts\Wildcard;
-use Spatie\Permission\Exceptions\WildcardPermissionNotProperlyFormatted;
+use Elseoclub\Permission\Contracts\Wildcard;
+use Elseoclub\Permission\Exceptions\WildcardPermissionNotProperlyFormatted;
 
-class WildcardPermission implements Wildcard
-{
+class WildcardPermission implements Wildcard {
     /** @var string */
     public const WILDCARD_TOKEN = '*';
 
@@ -20,19 +19,17 @@ class WildcardPermission implements Wildcard
 
     protected Model $record;
 
-    public function __construct(Model $record)
-    {
+    public function __construct( Model $record ) {
         $this->record = $record;
     }
 
-    public function getIndex(): array
-    {
+    public function getIndex(): array {
         $index = [];
 
-        foreach ($this->record->getAllPermissions() as $permission) {
-            $index[$permission->guard_name] = $this->buildIndex(
-                $index[$permission->guard_name] ?? [],
-                explode(static::PART_DELIMITER, $permission->name),
+        foreach ( $this->record->getAllPermissions() as $permission ) {
+            $index[ $permission->guard_name ] = $this->buildIndex(
+                $index[ $permission->guard_name ] ?? [],
+                explode( static::PART_DELIMITER, $permission->name ),
                 $permission->name,
             );
         }
@@ -40,37 +37,36 @@ class WildcardPermission implements Wildcard
         return $index;
     }
 
-    protected function buildIndex(array $index, array $parts, string $permission): array
-    {
-        if (empty($parts)) {
-            $index[null] = true;
+    protected function buildIndex( array $index, array $parts, string $permission ): array {
+        if ( empty( $parts ) ) {
+            $index[ null ] = true;
 
             return $index;
         }
 
-        $part = array_shift($parts);
+        $part = array_shift( $parts );
 
-        if (blank($part)) {
-            throw WildcardPermissionNotProperlyFormatted::create($permission);
+        if ( blank( $part ) ) {
+            throw WildcardPermissionNotProperlyFormatted::create( $permission );
         }
 
-        if (! Str::contains($part, static::SUBPART_DELIMITER)) {
-            $index[$part] = $this->buildIndex(
-                $index[$part] ?? [],
+        if ( ! Str::contains( $part, static::SUBPART_DELIMITER ) ) {
+            $index[ $part ] = $this->buildIndex(
+                $index[ $part ] ?? [],
                 $parts,
                 $permission,
             );
         }
 
-        $subParts = explode(static::SUBPART_DELIMITER, $part);
+        $subParts = explode( static::SUBPART_DELIMITER, $part );
 
-        foreach ($subParts as $subPart) {
-            if (blank($subPart)) {
-                throw WildcardPermissionNotProperlyFormatted::create($permission);
+        foreach ( $subParts as $subPart ) {
+            if ( blank( $subPart ) ) {
+                throw WildcardPermissionNotProperlyFormatted::create( $permission );
             }
 
-            $index[$subPart] = $this->buildIndex(
-                $index[$subPart] ?? [],
+            $index[ $subPart ] = $this->buildIndex(
+                $index[ $subPart ] ?? [],
                 $parts,
                 $permission,
             );
@@ -79,38 +75,36 @@ class WildcardPermission implements Wildcard
         return $index;
     }
 
-    public function implies(string $permission, string $guardName, array $index): bool
-    {
-        if (! array_key_exists($guardName, $index)) {
+    public function implies( string $permission, string $guardName, array $index ): bool {
+        if ( ! array_key_exists( $guardName, $index ) ) {
             return false;
         }
 
-        $permission = explode(static::PART_DELIMITER, $permission);
+        $permission = explode( static::PART_DELIMITER, $permission );
 
-        return $this->checkIndex($permission, $index[$guardName]);
+        return $this->checkIndex( $permission, $index[ $guardName ] );
     }
 
-    protected function checkIndex(array $permission, array $index): bool
-    {
-        if (array_key_exists(strval(null), $index)) {
+    protected function checkIndex( array $permission, array $index ): bool {
+        if ( array_key_exists( strval( null ), $index ) ) {
             return true;
         }
 
-        if (empty($permission)) {
+        if ( empty( $permission ) ) {
             return false;
         }
 
-        $firstPermission = array_shift($permission);
+        $firstPermission = array_shift( $permission );
 
         if (
-            array_key_exists($firstPermission, $index) &&
-            $this->checkIndex($permission, $index[$firstPermission])
+            array_key_exists( $firstPermission, $index ) &&
+            $this->checkIndex( $permission, $index[ $firstPermission ] )
         ) {
             return true;
         }
 
-        if (array_key_exists(static::WILDCARD_TOKEN, $index)) {
-            return $this->checkIndex($permission, $index[static::WILDCARD_TOKEN]);
+        if ( array_key_exists( static::WILDCARD_TOKEN, $index ) ) {
+            return $this->checkIndex( $permission, $index[ static::WILDCARD_TOKEN ] );
         }
 
         return false;
